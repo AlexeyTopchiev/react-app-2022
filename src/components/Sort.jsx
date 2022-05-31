@@ -1,11 +1,12 @@
 import React, { useState } from "react"
 
+const sortList = [
+  { label: "популярности", value: "popular", id: 0 },
+  { label: "цене", value: "price", id: 1 },
+  { label: "алфавиту", value: "alphabet", id: 2 }
+]
+
 function Sort() {
-  const sortList = [
-    { label: "популярности", value: "popular", id: 0 },
-    { label: "цене", value: "price", id: 1 },
-    { label: "алфавиту", value: "alphabet", id: 2 }
-  ]
   const [activeSort, setActiveSort] = useState({
     label: "популярности",
     value: "popular",
@@ -20,9 +21,9 @@ function Sort() {
 
   return (
     <div className="sort">
-      {
-        isOpen && <div className="sort__overflow" onClick={() => setIsOpen(!isOpen)}/>
-      }
+      {isOpen && (
+        <div className="sort__overflow" onClick={() => setIsOpen(!isOpen)} />
+      )}
       <div className="sort__label">
         <svg
           width="10"
