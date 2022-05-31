@@ -1,6 +1,28 @@
+import React, { useState } from "react"
+
 function Sort() {
+  const sortList = [
+    { label: "популярности", value: "popular", id: 0 },
+    { label: "цене", value: "price", id: 1 },
+    { label: "алфавиту", value: "alphabet", id: 2 }
+  ]
+  const [activeSort, setActiveSort] = useState({
+    label: "популярности",
+    value: "popular",
+    id: 0
+  })
+  const [isOpen, setIsOpen] = useState(false)
+
+  const handleActiveSort = sort => {
+    setActiveSort(sort)
+    setIsOpen(!isOpen)
+  }
+
   return (
     <div className="sort">
+      {
+        isOpen && <div className="sort__overflow" onClick={() => setIsOpen(!isOpen)}/>
+      }
       <div className="sort__label">
         <svg
           width="10"
@@ -15,15 +37,23 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setIsOpen(!isOpen)}>{activeSort.label}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {isOpen && (
+        <div className="sort__popup">
+          <ul>
+            {sortList.map(sort => (
+              <li
+                className={sort.id === activeSort.id ? "active" : ""}
+                key={sort.id}
+                onClick={() => handleActiveSort(sort)}
+              >
+                {sort.label}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }
