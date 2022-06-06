@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 const categories = [
   { label: "Все", value: "All", id: 0 },
   { label: "Мясные", value: "Meat", id: 1 },
@@ -9,25 +7,15 @@ const categories = [
   { label: "Закрытые", value: "Closed", id: 5 }
 ]
 
-function Categories() {
-  const [activeCategory, setActiveCategory] = useState({
-    label: "Все",
-    value: "All",
-    id: 0
-  })
-
-  const handleCategory = category => {
-    setActiveCategory(category)
-  }
-
+function Categories({ value, setActiveCategory }) {
   return (
     <div className="categories">
       <ul>
         {categories.map(category => (
           <li
-            className={category.id === activeCategory.id ? "active" : ""}
+            className={category.id === value.id ? "active" : ""}
             key={category.id}
-            onClick={() => handleCategory(category)}
+            onClick={() => setActiveCategory(category)}
           >
             {category.label}
           </li>

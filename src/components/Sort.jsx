@@ -1,17 +1,15 @@
 import React, { useState } from "react"
 
 const sortList = [
-  { label: "популярности", value: "popular", id: 0 },
-  { label: "цене", value: "price", id: 1 },
-  { label: "алфавиту", value: "alphabet", id: 2 }
+  { label: "популярности ↓", value: "rating", order: "desc", id: 0 },
+  { label: "популярности ↑", value: "rating", order: "asc", id: 1 },
+  { label: "цене ↓", value: "price", order: "desc", id: 2 },
+  { label: "цене ↑", value: "price", order: "asc", id: 3 },
+  { label: "алфавиту ↓", value: "title", order: "desc", id: 4 },
+  { label: "алфавиту ↑", value: "title", order: "asc", id: 5 }
 ]
 
-function Sort() {
-  const [activeSort, setActiveSort] = useState({
-    label: "популярности",
-    value: "popular",
-    id: 0
-  })
+function Sort({ value, setActiveSort }) {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleActiveSort = sort => {
@@ -38,14 +36,14 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsOpen(!isOpen)}>{activeSort.label}</span>
+        <span onClick={() => setIsOpen(!isOpen)}>{value.label}</span>
       </div>
       {isOpen && (
         <div className="sort__popup">
           <ul>
             {sortList.map(sort => (
               <li
-                className={sort.id === activeSort.id ? "active" : ""}
+                className={sort.id === value.id ? "active" : ""}
                 key={sort.id}
                 onClick={() => handleActiveSort(sort)}
               >
